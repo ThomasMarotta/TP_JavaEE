@@ -17,7 +17,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-6">
                 <div class="card shadow-lg p-4">
-                    <form action="AnnonceS" method="POST">
+                    <form action="AnnonceAdd" method="POST">
                         <h2 class="mb-4">Interface d'enregristrement d'une annonce</h2>
                         <div class="form-floating mb-3">
                             <input class="form-control" placeholder="entrez un titre" id="titre" name="titre" required></input>

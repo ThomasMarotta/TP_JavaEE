@@ -5,9 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.iut.montreuil.DAO.AnnonceDAO;
+import org.iut.montreuil.Service.AnnonceService;
 import org.iut.montreuil.bean.Annonce;
-import org.iut.montreuil.connection.ConnectionDB;
 
 import java.io.IOException;
 
@@ -16,8 +15,8 @@ public class AnnonceUpdate extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         try {
-            AnnonceDAO annonceDAO = new AnnonceDAO(ConnectionDB.getInstance());
-            Annonce annonce = annonceDAO.find(id);
+            AnnonceService annonceService = AnnonceService.getInstance();
+            Annonce annonce = annonceService.getAnnonceById(id);
 
             request.setAttribute("annonce", annonce);
         } catch (Exception e) {
@@ -37,14 +36,9 @@ public class AnnonceUpdate extends HttpServlet {
         );
 
         try {
-            AnnonceDAO annonceDAO = new AnnonceDAO(ConnectionDB.getInstance());
-            boolean result = annonceDAO.update(annonce);
-
-            if(result) {
-                response.sendRedirect("AnnonceList");
-            } else {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors de la mise à jour");
-            }
+            AnnonceService annonceService = AnnonceService.getInstance();
+            annonceService.updateAnnonce(annonce);
+            response.sendRedirect("AnnonceList");
 
         } catch (Exception e) {
             e.printStackTrace();

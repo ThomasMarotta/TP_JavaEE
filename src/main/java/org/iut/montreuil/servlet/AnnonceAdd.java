@@ -5,14 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.iut.montreuil.DAO.AnnonceDAO;
-import org.iut.montreuil.connection.ConnectionDB;
+import org.iut.montreuil.Service.AnnonceService;
 import org.iut.montreuil.bean.Annonce;
 
 import java.io.IOException;
 
-@WebServlet("/AnnonceS")
-public class AnnonceS extends HttpServlet {
+@WebServlet("/AnnonceAdd")
+public class AnnonceAdd extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Annonce annonce = new Annonce(
                 request.getParameter("titre"),
@@ -22,17 +21,11 @@ public class AnnonceS extends HttpServlet {
         );
 
         try {
-            AnnonceDAO annonceDAO = new AnnonceDAO(ConnectionDB.getInstance());
-            Boolean bool = annonceDAO.create(annonce);
-
-            if(bool) {
-                response.sendRedirect("AnnonceList");
-            } else {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors de la mise à jour");
-            }
+            AnnonceService annonceService = AnnonceService.getInstance();
+            annonceService.saveAnnonce(annonce);
+            response.sendRedirect("AnnonceList");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.getServletContext().getRequestDispatcher("/AnnonceAdd.jsp").forward(request, response);
     }
 }

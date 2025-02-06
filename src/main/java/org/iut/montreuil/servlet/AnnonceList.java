@@ -5,19 +5,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.iut.montreuil.DAO.AnnonceDAO;
+import org.iut.montreuil.Service.AnnonceService;
 import org.iut.montreuil.bean.Annonce;
-import org.iut.montreuil.connection.ConnectionDB;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/AnnonceList")
 public class AnnonceList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            AnnonceDAO annonceDAO = new AnnonceDAO(ConnectionDB.getInstance());
-            ArrayList<Annonce> annonces = annonceDAO.findAll();
+            AnnonceService annonceService = AnnonceService.getInstance();
+
+           List<Annonce> annonces = annonceService.getAnnonces();
 
             request.setAttribute("annonces", annonces);
         } catch (Exception e) {

@@ -5,8 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.iut.montreuil.DAO.AnnonceDAO;
-import org.iut.montreuil.connection.ConnectionDB;
+import org.iut.montreuil.Service.AnnonceService;
 
 import java.io.IOException;
 
@@ -16,15 +15,9 @@ public class AnnonceDelete extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         try {
-            AnnonceDAO annonceDAO = new AnnonceDAO(ConnectionDB.getInstance());
-            Boolean result = annonceDAO.delete(id);
-
-            if(result) {
-                response.sendRedirect("AnnonceList");
-            } else {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors de la supression");
-            }
-
+            AnnonceService annonceService = AnnonceService.getInstance();
+            annonceService.deleteAnnonce(annonceService.getAnnonceById(id));
+            response.sendRedirect("AnnonceList");
         } catch (Exception e){
             e.printStackTrace();
         }
