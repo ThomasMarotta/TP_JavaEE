@@ -5,7 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.iut.montreuil.Service.AnnonceService;
+import org.iut.montreuil.Interface.AnnonceService;
+import org.iut.montreuil.Service.AnnonceServiceImpl;
 
 import java.io.IOException;
 
@@ -15,7 +16,7 @@ public class AnnonceDelete extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         try {
-            AnnonceService annonceService = AnnonceService.getInstance();
+            AnnonceService annonceService = AnnonceServiceImpl.getInstance();
             annonceService.deleteAnnonce(annonceService.getAnnonceById(id));
             response.sendRedirect("AnnonceList");
         } catch (Exception e){

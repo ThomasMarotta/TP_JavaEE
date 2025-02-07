@@ -2,21 +2,24 @@ package org.iut.montreuil.Service;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.iut.montreuil.Interface.AnnonceService;
 import org.iut.montreuil.bean.Annonce;
 import org.iut.montreuil.connection.HibernateUtil;
 
 import java.util.List;
 
-public class AnnonceService {
+public class AnnonceServiceImpl implements AnnonceService {
 
-    private static AnnonceService instance = null;
+    private static AnnonceServiceImpl instance = null;
 
-    public static AnnonceService getInstance() {
+    public static AnnonceServiceImpl getInstance() {
         if(instance == null){
-            instance = new AnnonceService();
+            instance = new AnnonceServiceImpl();
         }
         return instance;
     }
+
+    @Override
     public void saveAnnonce(Annonce annonce) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
@@ -27,6 +30,7 @@ public class AnnonceService {
         }
     }
 
+    @Override
     public void updateAnnonce(Annonce annonce) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
@@ -35,6 +39,7 @@ public class AnnonceService {
         }
     }
 
+    @Override
     public List<Annonce> getAnnonces() {
         List<Annonce> annonces = null;
 
@@ -46,6 +51,7 @@ public class AnnonceService {
         return annonces;
     }
 
+    @Override
     public Annonce getAnnonceById(int id) {
         Annonce annonce = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -57,6 +63,7 @@ public class AnnonceService {
 
     }
 
+    @Override
     public void deleteAnnonce(Annonce annonce) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();

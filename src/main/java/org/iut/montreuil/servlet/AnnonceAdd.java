@@ -5,7 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.iut.montreuil.Service.AnnonceService;
+import org.iut.montreuil.Interface.AnnonceService;
+import org.iut.montreuil.Service.AnnonceServiceImpl;
 import org.iut.montreuil.bean.Annonce;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class AnnonceAdd extends HttpServlet {
         );
 
         try {
-            AnnonceService annonceService = AnnonceService.getInstance();
+            AnnonceService annonceService = AnnonceServiceImpl.getInstance();
             annonceService.saveAnnonce(annonce);
             response.sendRedirect("AnnonceList");
         } catch (Exception e) {

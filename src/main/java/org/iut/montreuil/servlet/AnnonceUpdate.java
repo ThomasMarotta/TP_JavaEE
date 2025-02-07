@@ -5,7 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.iut.montreuil.Service.AnnonceService;
+import org.iut.montreuil.Interface.AnnonceService;
+import org.iut.montreuil.Service.AnnonceServiceImpl;
 import org.iut.montreuil.bean.Annonce;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class AnnonceUpdate extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         try {
-            AnnonceService annonceService = AnnonceService.getInstance();
+            AnnonceService annonceService = AnnonceServiceImpl.getInstance();
             Annonce annonce = annonceService.getAnnonceById(id);
 
             request.setAttribute("annonce", annonce);
@@ -36,7 +37,7 @@ public class AnnonceUpdate extends HttpServlet {
         );
 
         try {
-            AnnonceService annonceService = AnnonceService.getInstance();
+            AnnonceService annonceService = AnnonceServiceImpl.getInstance();
             annonceService.updateAnnonce(annonce);
             response.sendRedirect("AnnonceList");
 
