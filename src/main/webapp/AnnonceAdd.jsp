@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: thomas
@@ -37,12 +36,6 @@
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Envoyer</button>
                     </form>
-
-                    <c:if test="${not empty request.message}">
-                        <div class="alert alert-success" role="alert">
-                                ${request.message}
-                        </div>
-                    </c:if>
                 </div>
             </div>
         </div>

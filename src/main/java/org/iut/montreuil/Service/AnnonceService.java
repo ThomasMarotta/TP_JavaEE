@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AnnonceService {
 
-    public static AnnonceService instance = null;
+    private static AnnonceService instance = null;
 
     public static AnnonceService getInstance() {
         if(instance == null){
